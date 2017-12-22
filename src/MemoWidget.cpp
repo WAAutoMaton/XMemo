@@ -1,6 +1,6 @@
 #include "MemoWidget.h"
 #include <QFile>
-#include "contribute/markdown.h"
+#include "contribute/cpp-markdown/markdown.h"
 #include <sstream>
 #include <QDebug>
 
