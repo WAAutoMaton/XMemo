@@ -50,6 +50,7 @@ private:
     QAction *newAction;
     QAction *TrayNewAction;
     QAction *quitAction;
+    QAction *TrayOpenXMemoAction;
     QAction *deleteMemosAction;
     QAction *hideMemosAction;
     QAction *showMemosAction;

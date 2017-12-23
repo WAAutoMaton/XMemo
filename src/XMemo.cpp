@@ -174,6 +174,9 @@ void XMemo::createAction()
     newAction->setIcon(QIcon(":/image/widget/new.png"));
     connect(newAction, &QAction::triggered, this, &XMemo::onNewMemoTriggered);
 
+    TrayOpenXMemoAction = new QAction(tr("Open"),this);
+    connect(TrayOpenXMemoAction,&QAction::triggered,this,[&](){this->show();});
+
     TrayNewAction = new QAction(QIcon(":/image/widget/new.png"), tr("New"), this);
     connect(TrayNewAction, &QAction::triggered, this, &XMemo::onNewMemoTriggered);
 
@@ -203,6 +206,7 @@ void XMemo::createTrayIcon()
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(TrayNewAction);
     trayIconMenu->addAction(quitAction);
+    trayIconMenu->addAction(TrayOpenXMemoAction);
 
     trayIcon->show();
     trayIcon->setContextMenu(trayIconMenu);
