@@ -26,8 +26,8 @@
 #include <QHash>
 #include "MemoInfo.h"
 
-const int WIDTH = 200;
-const int HEIGHT = 300;
+const int WIDTH = 300;
+const int HEIGHT = 400;
 const int BUTTON_WIDTH = 30;
 const int BUTTON_HEIGHT = 30;
 const int COLOR_BUTTON_COUNT = 5;
@@ -64,7 +64,7 @@ private:
     QPoint relativePos;
     bool isMoving = false;
     bool isPinned = false;
-    bool isStayOnTop = false;
+    bool isStayOnDesktop = false;
     QHash<QObject *, int> colorBtns2Color;
 
     void createCloseBtn();
@@ -88,6 +88,7 @@ private:
     void save();    //保存修改
 
     void loadStyleSheet(const QString colorName);
+    void stayOnDesktop();
 
 public:
     explicit MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent = 0);
@@ -109,7 +110,7 @@ private slots:
     void onNewBtnClicked();
     void onEditBtnClicked();
     void onPinBtnClicked();
-    void onStayOnTopBtnClicked();
+    void onStayOnDesktopBtnClicked();
     void onColorBtnClicked();
 };
 

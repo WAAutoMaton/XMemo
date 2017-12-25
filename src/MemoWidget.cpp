@@ -17,7 +17,7 @@ MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : Q
     this->setObjectName("MemoWidget");
     this->memoInfo = memoInfo;
     this->color = memoInfo->getColor();
-    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool);
+    setWindowFlags(Qt::FramelessWindowHint | Qt::Tool | Qt::WindowStaysOnBottomHint);
     setAttribute(Qt::WA_DeleteOnClose);
     setFixedSize(WIDTH, HEIGHT);
     this->installEventFilter(this);
@@ -109,7 +109,7 @@ void MemoWidget::createStayOnTopBtn()
     stayOnTopBtn->move(BUTTON_WIDTH * 3, 0);
     stayOnTopBtn->setFlat(true);
     stayOnTopBtn->setIcon(QIcon(":/image/widget/stayOnTop.png"));
-    connect(stayOnTopBtn, &QPushButton::clicked, this, &MemoWidget::onStayOnTopBtnClicked);
+    connect(stayOnTopBtn, &QPushButton::clicked, this, &MemoWidget::onStayOnDesktopBtnClicked);
     stayOnTopBtn->hide();
 }
 
@@ -284,6 +284,22 @@ void MemoWidget::loadStyleSheet(const QString colorName)
     setStyleSheet(styleSheet);
 }
 
+void MemoWidget::stayOnDesktop()
+{
+    if (isStayOnDesktop)
+    {
+        setWindowFlags(windowFlags() & ~Qt::X11BypassWindowManagerHint);
+        isStayOnDesktop = false;
+    }
+    else
+    {
+        setWindowFlags(windowFlags() | Qt::X11BypassWindowManagerHint |  Qt::WindowStaysOnBottomHint);
+        isStayOnDesktop = true;
+    }
+
+    show();
+}
+
 void MemoWidget::setMode(Mode mode)
 {
     switch (mode)
@@ -327,20 +343,9 @@ void MemoWidget::onPinBtnClicked()
     }
 }
 
-void MemoWidget::onStayOnTopBtnClicked()
+void MemoWidget::onStayOnDesktopBtnClicked()
 {
-    if (isStayOnTop)
-    {
-        setWindowFlags(windowFlags() & ~Qt::WindowStaysOnTopHint & ~Qt::X11BypassWindowManagerHint);
-        isStayOnTop = false;
-    }
-    else
-    {
-        setWindowFlags(windowFlags() | Qt::WindowStaysOnTopHint | Qt::X11BypassWindowManagerHint);
-        isStayOnTop = true;
-    }
-
-    show();
+    stayOnDesktop();
 }
 
 /**
