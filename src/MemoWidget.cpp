@@ -9,7 +9,10 @@ QString MarkdownToHtml(const QString &md) {
     doc.read(md.toStdString());
     std::ostringstream out;
     doc.write(out);
-    return QString::fromStdString(out.str());
+    QString t=QString::fromStdString(out.str());
+    t.replace("&gt;",">");
+    t.replace("&lt;","<");
+    return t;
 }
 
 MemoWidget::MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent) : QWidget(parent)
