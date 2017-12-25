@@ -177,6 +177,9 @@ void XMemo::createAction()
     TrayOpenXMemoAction = new QAction(tr("Open"),this);
     connect(TrayOpenXMemoAction,&QAction::triggered,this,[&](){this->show();});
 
+    TrayRefreshMemoAction =new QAction(tr("Refresh"),this);
+    connect(TrayRefreshMemoAction,&QAction::triggered,this,[&](){this->refreshMemos();});
+
     TrayNewAction = new QAction(QIcon(":/image/widget/new.png"), tr("New"), this);
     connect(TrayNewAction, &QAction::triggered, this, &XMemo::onNewMemoTriggered);
 
@@ -205,8 +208,9 @@ void XMemo::createTrayIcon()
     trayIcon = new QSystemTrayIcon(QIcon(":/image/xmemo.png"), this);
     trayIconMenu = new QMenu(this);
     trayIconMenu->addAction(TrayNewAction);
-    trayIconMenu->addAction(quitAction);
     trayIconMenu->addAction(TrayOpenXMemoAction);
+    trayIconMenu->addAction(TrayRefreshMemoAction);
+    trayIconMenu->addAction(quitAction);
 
     trayIcon->show();
     trayIcon->setContextMenu(trayIconMenu);
@@ -271,6 +275,19 @@ void XMemo::raiseMemos()
         if (i->getMemoWidget() && i->getMemoWidget()->isVisible())
         {
             i->getMemoWidget()->raise();
+        }
+    }
+}
+
+void XMemo::refreshMemos()
+{
+    for(MemoInfo* i: memosList)
+    {
+        if (i->isVisible())
+        {
+            setMemoVisibility(i,false);
+            setMemoVisibility(i,true);
+            i->getMemoWidget()->stayOnDesktop();
         }
     }
 }

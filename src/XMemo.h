@@ -51,6 +51,7 @@ private:
     QAction *TrayNewAction;
     QAction *quitAction;
     QAction *TrayOpenXMemoAction;
+    QAction *TrayRefreshMemoAction;
     QAction *deleteMemosAction;
     QAction *hideMemosAction;
     QAction *showMemosAction;
@@ -61,6 +62,7 @@ private:
     void closeEvent(QCloseEvent *e);
     QList<int> getSelectedRows();
     void raiseMemos();
+    void refreshMemos();
 
 public:
     XMemo(QWidget *parent = 0);

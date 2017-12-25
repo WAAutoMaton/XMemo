@@ -27,7 +27,7 @@
 #include "MemoInfo.h"
 
 const int WIDTH = 300;
-const int HEIGHT = 400;
+const int HEIGHT = 600;
 const int BUTTON_WIDTH = 30;
 const int BUTTON_HEIGHT = 30;
 const int COLOR_BUTTON_COUNT = 5;
@@ -88,7 +88,6 @@ private:
     void save();    //保存修改
 
     void loadStyleSheet(const QString colorName);
-    void stayOnDesktop();
 
 public:
     explicit MemoWidget(MemoInfo *memoInfo, bool isEditMode, QWidget *parent = 0);
@@ -100,6 +99,8 @@ public:
     int getColor() const;
 
     void setMode(Mode mode);    //切换便签显示模式， VIEW：窗口未激活时的便签查看模式；SELECT：窗口激活但未进入编辑状态模式；EDIT：编辑模式
+
+    void stayOnDesktop();
 
 signals:
     void createMemo();
